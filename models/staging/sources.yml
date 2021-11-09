@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: aw_el
+    tables:
+      - name: salesorderdetail
+      - name: product
+      - name: address
+      - name: countryregion
+      - name: person
+      - name: stateprovince
+      - name: creditcard
+      - name: salesorderheader
+      - name: salesorderheadersalesreason
+      - name: salesreason
+      - name: customer
+      - name: store
