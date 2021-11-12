@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: dim_customer
+    columns:
+      - name: customer_sk
+        description: primary key of the customer
+        tests:
+          - unique
+          - not_null
+      
+      - name: customerid
+        description: natural key of the customer
+
+      - name: businessentityid
+        description: natural key of the person
+        
+      - name: fullname
+        description: full name of the person (when the customer is a person)
+
+      - name: storecustomerid
+        description: natural key of the store 
+        
+      - name: storename
+        description: name of the store (when the customer is a store)

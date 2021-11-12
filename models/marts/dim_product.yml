@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: dim_product
+    columns:
+      - name: product_sk
+        description: primary key of the product
+        tests:
+          - unique
+          - not_null
+
+      - name: productid
+        description: natural key of the product
+
+      - name: productname
+        description: name of the product
