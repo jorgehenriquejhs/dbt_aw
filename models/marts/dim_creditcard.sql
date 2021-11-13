@@ -5,11 +5,7 @@ with
 
             , creditcardid	
             
-            , cardtype	
-            /* , cardnumber	*/
-            , expmonth	
-            , expyear	
-            , modifieddate		
+            , cardtype		
 
         from {{ ref('stg_creditcard') }}
     )

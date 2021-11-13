@@ -16,16 +16,16 @@ with
     
     , reasonperorder as (
         select
-            reasoninfo.salesreasonid
+            salesreasoninfo.salesorderid
+            , reasoninfo.salesreasonid
             , reasoninfo.reasontype
             , reasoninfo.reasonname
-            , salesreasoninfo.salesorderid
-        from reasoninfo
-        left join salesreasoninfo on reasoninfo.salesreasonid = salesreasoninfo.salesreasonid
-        where salesorderid is not Null
+        from salesreasoninfo
+        left join reasoninfo on reasoninfo.salesreasonid = salesreasoninfo.salesreasonid
+        where salesreasoninfo.salesreasonid is not Null
     )
-    
-    , final as (
+
+    , source as (
         select
             salesorderid,
             STRING_AGG(reasonname, ', ') as salesreasons
@@ -33,4 +33,4 @@ with
         group by salesorderid
     )
 
-select * from final
+select * from source

@@ -2,27 +2,23 @@ with
     customerinfo as (
         select
             customer_sk
-
-            , customerid	
-
+            , customerid
+            , personid
+            , storeid	
         from {{ ref('stg_customer') }}
     )
 
     , personinfo as (
         select
             businessentityid
-            
             , fullname
-
         from {{ ref('stg_person') }}
     )
 
     , storeinfo as (
         select
             storecustomerid
-            
             , storename
-
         from {{ ref('stg_store') }}
     ) 
 
@@ -41,8 +37,8 @@ with
             end as customername
         
         from customerinfo
-        left join personinfo on customerinfo.customerid = personinfo.businessentityid
-        left join storeinfo on customerinfo.customerid = storeinfo.storecustomerid
+        left join personinfo on customerinfo.personid = personinfo.businessentityid
+        left join storeinfo on customerinfo.storeid = storeinfo.storecustomerid
     )
 
 select * from final

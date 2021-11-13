@@ -33,16 +33,18 @@ with
             , orderheader.billtoaddressid
             , orderheader.salesorderid
             , orderheader.orderdate
-            , orderheader.status
-            , orderheader.subtotal	
-            , orderheader.taxamt	
-            , orderheader.freight	
-            , orderheader.totaldue
+            , case
+                when orderheader.status = 1 then 'Em Processamento'
+                when orderheader.status = 2 then 'Aprovado'
+                when orderheader.status = 3 then 'Em Espera'
+                when orderheader.status = 4 then 'Rejeitado'
+                when orderheader.status = 5 then 'Enviado'
+                when orderheader.status = 6 then 'Cancelado'
+            end as status
 
         from {{ ref('stg_salesorderheader') }} as orderheader
         left join salesreason on orderheader.salesorderid = salesreason.salesorderid
         left join customer on orderheader.customerid = customer.customerid
-        
     )
 
     , orderdetail_with_sk as (
@@ -72,10 +74,6 @@ with
             , orderdetail_with_sk.orderqty			
             , orderdetail_with_sk.unitprice	
             , orderdetail_with_sk.unitpricediscount
-            , orderheader_with_sk.subtotal	
-            , orderheader_with_sk.taxamt	
-            , orderheader_with_sk.freight	
-            , orderheader_with_sk.totaldue
             , dim_address.city
             , dim_address.statename
             , dim_address.countryname
